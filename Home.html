@@ -1,0 +1,88 @@
+<!Doctype HTML>
+<html>
+    
+<head>
+    <title>Home</title>
+</head>
+
+<body>
+    <h1 id="homeTitle">Home</h1>
+    <div id="ddLinkDiv" onclick="window.open('documentDesigner.html','_self')";>
+    <img id="ddLinkImg" src="Files/documentDesignerLogo.ico">
+        <p class="appTitle">Document Designer</p>
+    </div>
+    <br>
+    <div id="nsLinkDiv" onclick="window.open('noteSafe.html','_self')";>
+    <img id="nsLinkImg" src="Files/noteSafeLogo.ico">
+        <p class="appTitle">Note Safe</p>
+    </div>
+    
+    <br><br><br>
+    
+    <p id="weatherLink" onclick="window.open('https://weather.com','_self')">Weather</p>
+</body>
+
+<script>
+    
+</script>
+
+<style>
+    #weatherLink {
+        color: #0000ff;
+        text-align: center;
+        font-family: arial;
+    }
+#ddLinkImg {
+    height: 200px;
+    width: 200px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    transition-duration: 0.4s;
+    border-radius: 8pt;
+}
+#ddLinkImg:hover {
+    height: 300px;
+    width: 300px;
+    border-radius: 12pt;
+}
+
+#nsLinkDiv {
+    width: 400px;
+    display: inline;
+}
+
+#nsLinkImg {
+    height: 200px;
+    width: 200px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    transition-duration: 0.4s;
+    border-radius: 8pt;
+}
+#nsLinkImg:hover {
+    height: 300px;
+    width: 300px;
+    border-radius: 12pt;
+}
+
+#nsLinkDiv {
+    width: 400px;
+    display: inline;
+}
+
+h1 {
+    text-align: center;
+    color: #0000ff;
+    font-size: 25pt;
+    font-family: arial;
+}
+
+.appTitle {
+    font-size: 10pt;
+    text-align: center;
+    font-family: arial;
+}
+</style>
+</html>
