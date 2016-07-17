@@ -39,29 +39,7 @@
             </div>
             <br>
             <button onclick="saveFileAs()">Save File As...</button><button onclick="recallFile()">Recall File...</button><button onclick="exportDoc()">Export...</button><button onclick="undoEntry()">Undo</button><br>
-            <br><pre>
-The MIT License (MIT)
-
-Copyright (c) 2016 The Roy's Store
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-            </pre>
+            <br><button onclick="sLic()">Show License</button>
             <br><br><br><br>
         </div>
         <div onclick="document.getElementById('editor').style.display = 'block'; updateOnKey = true;">
@@ -83,6 +61,30 @@ SOFTWARE.
         var undoInterval = setInterval(undoPush, 0);
         
         var originalBodyString = "Document Designer is the best way to create amazing documents and show them off in your web browser. <i>With </i><b>tons </b><em>of </em><span class='textInverted'>rich</span> text <span class='textTimes'>configurations</span> <span class='textTimes'><b><i>available</i></b></span>, Document Designer is an amazing program that runs on <i>every major browser around!!!</i>\n\n\n<div class='quote'>\n<p>This is an example of one of the built-in features in Document Designer. Hover over this box to see it work.</p><br><p>Did you know that you can click on your document and edit it there? This speeds up the process of creating your document by a lot.</p><p>Try clicking on this text box and typing something.</p>\n</div>";
+        
+        function sLic() {
+            document.getElementById("display").innerHTML = "<pre style='font-family: arial; font-size: 8pt;>The MIT License (MIT)
+
+Copyright (c) 2016 The Roy&rsquo;s Store
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the &quot;Software&quot;), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</pre>";
+        }
         
         function undoEntry() {
             var i = 0;
