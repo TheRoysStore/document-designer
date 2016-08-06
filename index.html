@@ -16,7 +16,7 @@
         
     </head>
     
-    <body>
+    <body onload="playSP()">
         <P>How do you like Document Designer? Send feedback now and get this piano song emailed to you FREE!</P>
         <a href="mailto:TheRoysStore@gmail.com?Subject=Feedback" target="_top" onclick="redirect()">Send Feedback</a>
         <br><br><br>
@@ -38,6 +38,10 @@
     <script>
         function redirect() {
             window.location.assign("https://theroysstore.github.io/document-designer/ddMain")
+        }
+        
+        function playSP() {
+            document.getElementById("songPreview").play();
         }
     </script>
 </html>
