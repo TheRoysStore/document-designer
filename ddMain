@@ -1,0 +1,333 @@
+<!Doctype HTML>
+<html>
+    <head>
+        <title>Document Designer</title>
+
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        
+        <meta name="description" content="Document Designer is an amazing site where you can create beautiful HTML or plain text documents.">
+        <meta name="keywords" content="document,documents,designer,designers,pages,word,microsoft,microsoft word,HTML,rich text,plain text,text,presentation,table,web,web design,coding,computers,words,sentences,sentence,paragraphs,format,formatting,formatted,productivity,productive,create,colorful,books,write,writing,writing documents,beautiful,beautiful documents,gorgeous,testTag3141592653589793">
+
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+        
+        <link rel="icon" href="documentDesignerLogo.ico">
+    </head>
+    
+    <body onload="startup()" style="font-family: arial;">
+        <br>
+        <div style="text-align: center;" id="editor">
+            <div id="form">
+                <img src="documentDesignerLogo.ico" class="image"><br><br>
+                    Type your HTML code to create and style your document here (or just use plain text and get it styled for you).<br>
+                    <p id="guideLink" onclick="guideShow()">Click here for help with rich text formatting if you don't know HTML.</p>
+                    <p>Comments, questions, or feedback? Contact TheRoysStore@gmail.com!</p>
+                    <p>Please note that mean comments <I>WILL BE REPORTED</I>.</p>
+                    <div id="guide">
+                        <p onclick="guideHide()"><b>Welcome to the Document Designer guide. Click this title to hide the guide.</b></p>
+                        <p>Remember: If you don't know how to use HTML, you can use plain text in the editor.<p>
+                        <p>If you do know HTML, you can type it into the editor to design your document.</p>
+                        <p>This guide was designed to help those who want to use rich text formatting with Document Designer.</p>
+                        <p>One of the rich text items has already been set up for you- the em item.</p>
+                        <p>To use it, surround your text with &lt;em&gt; and &lt;/em&gt; tags.<p>
+                        <p>The &lt;em&gt; tags emphasize text. For instance, &lt;em&gt;this text&lt;/em&gt; would come out like this:</p>
+                        <p>The &lt;em&gt; tags emphasize text. For instance, <em>this text</em> would come out like this.</p>
+                        <p>You can also make text bold and italic. The &lt;b&gt;bold text&lt;/b&gt; tags make text bold, and the &lt;i&gt;italic text&lt;/i&gt; tags make text italic.</p>
+                        <p>You can also make text bold and italic. The <b>bold text</b> tags make text bold, and the <i>italic text</i> tags make text italic.</p>
+                        <br>
+                        <p>In addition to all of this, you can also use built-in classes with document designer. Surround your text with span items, and specify the class.</p>
+                        <p>&lt;span class="textTimes"&gt;This text&lt;/span&gt; will come out like this:</p>
+                        <p><span class="textTimes">This text</span> will come out like this.</p>
+                        <p>The classes are textArial, textTimes, textArialInverted, textTimesInverted, textInverted, textRed, textOrange, textYellow, textGreen, textTeal, textBlue, textCyan, textMagenta, textPurple, textLeft, textCenter, textRight, backgroundRed, backgroundOrange, backgroundYellow, backgroundGreen, backgroundCyan, backgroundBlue, backgroundRedGradient, backgroundOrangeGradient, backgroundYellowGradient, backgroundGreenGradient, backgroundBlueGradient, backgroundPurpleGradient, backgroundRedYellowGradient, textBold, textItalic, title, quote, and heading.</p>
+                        <p>So good luck with your documents!</p>
+                    </div>
+                    <br><br>
+                    Title:
+                    <input id="title" placeholder="Document Title" onkeyup="if (updateOnKey) {setTimeout(submit, 20);}" style="font-family: 'Courier New'; font-size: 12pt; width: 300pt; text-align: center;"> <br>
+                        <textarea id="message" rows="15" cols="100" placeholder="Design your document here in HTML or plain text." style="font-family: 'Courier New'; font-size: 12pt;" onkeyup="if (updateOnKey) {setTimeout(submit, 20);}"></textarea><br>
+                <button onclick="submit()">Save</button>
+            </div>
+            <br>
+            <button onclick="saveFileAs()">Save File As...</button><button onclick="recallFile()">Recall File...</button><button onclick="exportDoc()">Export...</button><button onclick="undoEntry()">Undo</button><br>
+            <br><button onclick="sLic()">Show License</button>
+            <br><br><br><br>
+        </div>
+        <div onclick="document.getElementById('editor').style.display = 'block'; updateOnKey = true;">
+            <br>
+        </div>
+        <h1 id="displayTitle" class="title" contenteditable="true" onkeyup="update();"></h1>
+        <pre id="display" style="font-family:arial;" contenteditable="true" onkeyup="update();">Your document will appear here.</pre>
+        <br><br><br><br>
+    </body>
+    
+    <script>
+        
+        var Undo = ["", ""];
+        var updateOnKey = true;
+        var previousDocumentText = "";
+        
+        var lStoreMem = "";
+        
+        var undoInterval = setInterval(undoPush, 0);
+        
+        var originalBodyString = "Document Designer is the best way to create amazing documents and show them off in your web browser. <i>With </i><b>tons </b><em>of </em><span class='textInverted'>rich</span> text <span class='textTimes'>configurations</span> <span class='textTimes'><b><i>available</i></b></span>, Document Designer is an amazing program that runs on <i>every major browser around!!!</i>\n\n\n<div class='quote'>\n<p>This is an example of one of the built-in features in Document Designer. Hover over this box to see it work.</p><br><p>Did you know that you can click on your document and edit it there? This speeds up the process of creating your document by a lot.</p><p>Try clicking on this text box and typing something.</p>\n</div>";
+        
+        function sLic() {
+            window.location = "http://www.gnu.org/licenses/agpl-3.0-standalone.html";
+        }
+        
+        function undoEntry() {
+            var i = 0;
+            while (i < 3) {
+                document.getElementById("message").value = (Undo.pop());
+                
+                document.getElementById("display").innerHTML = (document.getElementById("message").value);
+                document.getElementById("displayTitle").innerHTML = (document.getElementById("title").value);
+                
+                localStorage.setItem("body", (document.getElementById("message").value));
+                localStorage.setItem("title", (document.getElementById("title").value));
+                
+                i++;
+            }
+        }
+    
+    function saveFileAs() {
+        var response = (prompt("Please type a name for your document."));
+        localStorage.setItem(response, (document.getElementById("message").value));
+        localStorage.setItem((response + "  title"), document.getElementById("title").value);
+        localStorage.setItem("_  document  _", (lStoreMem + "," + response));
+    }
+    
+    function recallFile() {
+        var response = (prompt("Please type the name of your document."));
+        document.getElementById("message").value = (localStorage.getItem(response));
+        document.getElementById("title").value = (localStorage.getItem(response + "  title"));
+        submit();
+    }
+    
+    function undoPush() {
+        if (document.getElementById("message").value != previousDocumentText) {
+            Undo.push(document.getElementById("message").value);
+        }
+        
+        previousDocumentText = (document.getElementById("message").value);
+    }
+    
+    function update() {
+        document.getElementById("title").value = (document.getElementById("displayTitle").innerHTML);
+        document.getElementById("message").value = (document.getElementById("display").innerHTML);
+        
+        localStorage.setItem("body", (document.getElementById("message").value));
+        localStorage.setItem("title", (document.getElementById("title").value));
+    }
+    
+        function submit() {
+            if ((document.getElementById("title").value) == "dd-diag-showFileHistory") {
+                document.getElementById("message").value = (localStorage.getItem("_  document  _"));
+            } else if ((document.getElementById("title").value) == "dd-diag-clearFileHistory") {
+                localStorage.setItem("_  document  _", "");
+                document.getElementById("message").value = "File name history has been erased.";
+            } else {
+            document.getElementById("display").innerHTML = (document.getElementById("message").value);
+            document.getElementById("displayTitle").innerHTML = (document.getElementById("title").value);
+            Undo.push(document.getElementById("message").value);
+            
+            localStorage.setItem("body", (document.getElementById("message").value));
+            localStorage.setItem("title", (document.getElementById("title").value));
+            }
+        }
+    
+        function exportDoc() {
+            if (confirm("Are you sure you want to export this document?\n\n\nThis will display the document in the web browser and remove all editor controls.\n\n\nTo go back to editing mode, click the white space at the top of the document.\n\n\nYou can still edit your document by clicking on it and typing when you're in export mode.")) {
+                document.getElementById("editor").style.display = "none";
+                updateOnKey = false;
+            }
+        }
+    
+        function guideShow() {
+            document.getElementById("guideLink").style.display = "none";
+            document.getElementById("guide").style.display = "block";
+            
+        }
+    
+        function guideHide() {
+            document.getElementById("guideLink").style.display = "block";
+            document.getElementById("guide").style.display = "none";
+        
+        }
+    
+        function startup() {
+            if (typeof(Storage) == "undefined") {
+                alert("Your web browser does not support Document Designer 3.");
+                close();
+            } else {
+                if ((localStorage.getItem("body") == null || localStorage.getItem("body") == "") && (localStorage.getItem("title") == null || localStorage.getItem("title") == "")) {
+                    localStorage.setItem("body", originalBodyString);
+                    localStorage.setItem("title", "<div><img src='documentDesignerLogo.ico' class='image'><br></div><div><br></div>Welcome to Document Designer");
+                }
+            }
+            
+            document.getElementById("message").innerHTML = (localStorage.getItem("body"));
+            
+            document.getElementById("guide").style.display = "none";
+            document.getElementById("title").value = (localStorage.getItem("title"));
+            submit();
+        }
+    
+    </script>
+    
+    <style>
+        em {
+            font-style: italic;
+            font-weight: bold;
+            color: #ff0000;
+            font-size: 140%;
+            font-family: "Times New Roman", Times, serif;
+        }
+    
+    .image {
+        margin-left: auto;
+        margin-right: auto;
+        width: 150px;
+        height: 150px;
+        padding-left: 25px;
+        padding-right: 25px;
+        border-radius: 6px;
+    }
+    
+    
+    .textArial {
+        font-family: arial;
+    }
+    .textTimes {
+        font-family: times;
+    }
+    .textArialInverted {
+        font-family: arial;
+        background-color: #000000;
+        color: #ffffff;
+    }
+    .textTimesInverted {
+        font-family: times;
+        background-color: #000000;
+        color: #ffffff;
+    }
+    .textInverted {
+        background-color: #000000;
+        color: #ffffff;
+    }
+    
+    .textRed {
+        color: #ff0000;
+    }
+    .textOrange {
+        color: #ff7f00;
+    }
+    .textYellow {
+        color: #ffff00;
+    }
+    .textGreen {
+        color: #00ff00;
+    }
+    .textTeal {
+        color: #00ff7f;
+    }
+    .textBlue {
+        color: #0000ff;
+    }
+    .textCyan {
+        color: #00ffff;
+    }
+    .textMagenta {
+        color: #ff00ff
+    }
+    .textPurple: {
+        color: #7f00ff;
+    }
+    
+    .textLeft {
+        text-align: left;
+    }
+    .textRight {
+        text-align: right;
+    }
+    .textCenter {
+        text-align: center;
+    }
+    
+    .backgroundRed {
+        background-color: #ff0000;
+    }
+    .backgroundOrange {
+        background-color: #ff7f00;
+    }
+    .backgroundYellow {
+        background-color: #ffff00;
+    }
+    .backgroundGreen {
+        background-color: #00ff00;
+    }
+    .backgroundCyan {
+        background-color: #00ffff;
+    }
+    .backgroundBlue {
+        background-color: #0000ff;
+    }
+    
+    .backgroundRedGradient {
+        background: linear-gradient(#f00, #f40);
+    }
+    .backgroundOrangeGradient {
+        background: linear-gradient(#f60, #f90);
+    }
+    .backgroundYellowGradient {
+        background: linear-gradient(#ffe800, #f2fb34);
+    }
+    .backgroundGreenGradient {
+        background: linear-gradient(#0f0, #6f0);
+    }
+    .backgroundBlueGradient {
+        background: linear-gradient(#06f, #00f);
+    }
+    .backgroundPurpleGradient {
+        background: linear-gradient(#9d45b8, #3c0a49);
+    }
+    .backgroundRedYellowGradient {
+        background: linear-gradient(#f00, #ff0);
+    }
+    
+    .textBold {
+        font-weight: bold;
+    }
+    .textItalic {
+        font-style: italic;
+    }
+    
+    .title {
+        font-weight: bold;
+        color: #0000ff;
+        font-size: 30pt;
+        text-align: center;
+    }
+    .heading {
+        font-weight: bold;
+        color: #ff0000;
+        font-size: 15pt;
+        text-align: left;
+    }
+    
+    .quote {
+        background: linear-gradient(#00ff7f, #00ffff);
+        text-align: center;
+        color: #ffffff;
+        font-size: 20pt;
+        font-family: "Times New Roman";
+        transition-duration: 0.5s;
+    }
+    .quote:hover {
+        padding: 50pt;
+    }
+    
+    
+    
+    </style>
+</html>
