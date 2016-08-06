@@ -16,7 +16,7 @@
         
     </head>
     
-    <body>
+    <body onload="startup()">
         <P>How do you like Document Designer?</P>
         <a href="mailto:TheRoysStore@gmail.com?Subject=Feedback" target="_top" onclick="redirect()">Send Feedback</a>
         <br><br><br>
@@ -34,6 +34,13 @@
     <script>
         function redirect() {
             window.location.assign("https://theroysstore.github.io/document-designer/ddMain")
+        }
+        
+        function startup() {
+            if (localStorage.getItem("newrun") == null) {
+                localStorage.setItem("newrun", " ")
+                window.location.assign("https://theroysstore.github.io/document-designer/ddMain");
+            }
         }
     </script>
 </html>
