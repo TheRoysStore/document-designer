@@ -91,7 +91,7 @@
         
         var originalBodyString = "Document Designer is the best way to create amazing documents and show them off in your web browser. <i>With </i><b>tons </b><em>of </em><span class='textInverted'>rich</span> text <span class='textTimes'>configurations</span> <span class='textTimes'><b><i>available</i></b></span>, Document Designer is an amazing program that runs on <i>every major browser around!!!</i>\n\n\n<div class='quote'>\n<p>This is an example of one of the built-in features in Document Designer. Hover over this box to see it work.</p><br><p>Did you know that you can click on your document and edit it there? This speeds up the process of creating your document by a lot.</p><p>Try clicking on this text box and typing something.</p>\n</div>";
         
-        setTimeout(hideLicense(), 5000)
+        
         
         function sLic() {
             window.location = "http://www.gnu.org/licenses/agpl-3.0-standalone.html";
@@ -192,6 +192,8 @@
                     localStorage.setItem("title", "<div><img src='documentDesignerLogo.ico' class='image'><br></div><div><br></div>Welcome to Document Designer");
                 }
             }
+            
+            setTimeout(hideLicense(), 5000)
             
             document.getElementById("message").innerHTML = (localStorage.getItem("body"));
             
